@@ -86,17 +86,11 @@ function Toggle({ id }) {
   const { open, close, openId, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-    console.log('menu toggle');
-    
-    console.log(e.target.getBoundingClientRect());
-
     const rect = e.target.closest('button').getBoundingClientRect();
-    console.log(window.innerWidth - rect.width - rect.x);
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-    console.log(rect);
 
     openId === '' || openId !== id ? open(id) : close();
   }
