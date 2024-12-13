@@ -7,6 +7,8 @@ The Hotel Cabins is a React application built with Vite. It provides a dashboard
 - **React**: A JavaScript library for building user interfaces.
 - **Vite**: A fast build tool for modern web projects.
 - **React Router**: Declarative routing for React.
+- **React Query**: Powerful data synchronization and caching for server state in React applications.
+- **Supabase**: An open-source Firebase alternative that provides a backend as a service, including authentication, real-time databases, and storage.
 - **Styled Components**: Visual primitives for the component age.
 - **Recharts**: A composable charting library built on React components.
 - **Date-fns**: Modern JavaScript date utility library.
