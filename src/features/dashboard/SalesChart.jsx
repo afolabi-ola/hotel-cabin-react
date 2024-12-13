@@ -10,7 +10,13 @@ import {
   YAxis,
 } from 'recharts';
 import { useDarkMode } from '../../context/DarkModeContext';
-import { eachDayOfInterval, formatDate, isSameDay, subDays } from 'date-fns';
+import {
+  eachDayOfInterval,
+  format,
+  formatDate,
+  isSameDay,
+  subDays,
+} from 'date-fns';
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -71,8 +77,20 @@ function SalesChart({ bookings, numDays }) {
       extrasSales: bookings
         .filter((booking) => isSameDay(date, new Date(booking.created_at)))
         .reduce((acc, cur) => acc + cur.extrasPrice, 0),
-    };
+    }
   });
+
+
+  const isDataInvalid = (data) => {
+    return (
+      !data ||
+      data.length === 0 ||
+      data.every((item) => item === null) ||
+      data.every((item) => item === undefined)
+    );
+  };
+
+  const chartData = isDataInvalid(data) ? fakeData : data;
 
   const colors = isDarkMode
     ? {
@@ -90,9 +108,13 @@ function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <h2>Sales</h2>
+      <h2>
+        Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash;{' '}
+        {format(allDates.at(-1), 'MMM dd yyyy')}
+      </h2>
       <ResponsiveContainer height={300} width='100%'>
-        <AreaChart data={data}>
+        <AreaChart data={chartData}>
+          {/* <AreaChart data={data?.length < 1 ? fakeData : data}> */}
           <XAxis
             dataKey='label'
             tick={{ fill: colors.text }}
