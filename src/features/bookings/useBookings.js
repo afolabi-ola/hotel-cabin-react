@@ -5,7 +5,7 @@ import { PAGE_SIZE } from '../../utils/contants';
 
 export function useBookings() {
   const queryClient = useQueryClient();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const filterValue = searchParams.get('status');
 
   const filter =
