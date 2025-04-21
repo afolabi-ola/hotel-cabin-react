@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useUser } from '../features/authentication/useUser';
 import Spinner from './Spinner';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const FullPage = styled.div`
@@ -14,13 +14,20 @@ const FullPage = styled.div`
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   //load autenticated user
   const { isLoading, isAuthenticated } = useUser();
 
   useEffect(
     function () {
-      if (!isAuthenticated && !isLoading) navigate('/login');
+      if (!isAuthenticated && !isLoading)
+        navigate(
+          `/login?redirectTo=${encodeURIComponent(
+            location.pathname + location.search,
+          )}`,
+        );
     },
     [isAuthenticated, isLoading, navigate],
   );
