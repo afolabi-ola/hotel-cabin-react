@@ -15,7 +15,6 @@ const FullPage = styled.div`
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   //load autenticated user
   const { isLoading, isAuthenticated } = useUser();
@@ -29,7 +28,7 @@ function ProtectedRoute({ children }) {
           )}`,
         );
     },
-    [isAuthenticated, isLoading, navigate],
+    [isAuthenticated, isLoading, navigate, location.pathname, location.search],
   );
 
   if (isLoading)
