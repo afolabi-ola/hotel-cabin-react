@@ -4,8 +4,10 @@ import UserAvatar from '../features/authentication/UserAvatar';
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
-  padding: 1.2rem 4.8rem;
+  padding: 1.2rem 1.6rem;
   border-bottom: 1px solid var(--color-grey-100);
+  width: 100%;
+  min-width: 0;
 
   display: flex;
   gap: 2.4rem;
@@ -14,14 +16,25 @@ const StyledHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 100;
-  grid-area: 1 / 2 / span 1 / span 1;
+  grid-area: header;
+
+  @media (min-width: 48em) {
+    padding: 1.2rem 2.4rem;
+  }
+
+  @media (min-width: 64em) {
+    padding: 1.2rem 4.8rem;
+  }
 `;
 
-function Header() {
+function Header({ onToggleSidebar, isSidebarOpen }) {
   return (
     <StyledHeader>
       <UserAvatar />
-      <HeaderMenu />
+      <HeaderMenu
+        onToggleSidebar={onToggleSidebar}
+        isSidebarOpen={isSidebarOpen}
+      />
     </StyledHeader>
   );
 }

@@ -10,6 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 import { useDarkMode } from '../../context/DarkModeContext';
+import { useEffect, useState } from 'react';
 import {
   eachDayOfInterval,
   format,
@@ -20,6 +21,12 @@ import {
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
+
+  padding: 2rem 1.6rem;
+
+  @media (min-width: 48em) {
+    padding: 3.2rem;
+  }
 
   /* Hack to change grid line colors */
   & .recharts-cartesian-grid-horizontal line,
@@ -62,6 +69,20 @@ const fakeData = [
 
 function SalesChart({ bookings, numDays }) {
   const { isDarkMode } = useDarkMode();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(function () {
+    const mediaQuery = window.matchMedia('(max-width: 47.99em)');
+
+    function handleChange() {
+      setIsMobile(mediaQuery.matches);
+    }
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
@@ -112,13 +133,17 @@ function SalesChart({ bookings, numDays }) {
         Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash;{' '}
         {format(allDates.at(-1), 'MMM dd yyyy')}
       </h2>
-      <ResponsiveContainer height={300} width='100%'>
-        <AreaChart data={chartData}>
+      <ResponsiveContainer height={isMobile ? 220 : 260} width='100%'>
+        <AreaChart
+          data={chartData}
+          margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+        >
           {/* <AreaChart data={data?.length < 1 ? fakeData : data}> */}
           <XAxis
             dataKey='label'
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            interval={isMobile ? 1 : 0}
           />
           <YAxis
             unit='$'

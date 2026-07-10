@@ -9,6 +9,7 @@ const StyledFilter = styled.div`
   padding: 0.4rem;
   display: flex;
   gap: 0.4rem;
+  flex-wrap: wrap;
 `;
 
 const FilterButton = styled.button`
@@ -28,6 +29,7 @@ const FilterButton = styled.button`
   /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
+  white-space: nowrap;
 
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);
