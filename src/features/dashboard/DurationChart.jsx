@@ -8,7 +8,7 @@ import {
 } from 'recharts';
 import styled from 'styled-components';
 import { useDarkMode } from '../../context/DarkModeContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ChartBox = styled.div`
   /* Box */
@@ -16,8 +16,16 @@ const ChartBox = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
 
-  padding: 2.4rem 3.2rem;
-  grid-column: 3 / span 2;
+  padding: 2rem 1.6rem;
+  grid-column: 1 / -1;
+
+  @media (min-width: 48em) {
+    padding: 2.4rem 3.2rem;
+  }
+
+  @media (min-width: 64em) {
+    grid-column: 3 / span 2;
+  }
 
   & > *:first-child {
     margin-bottom: 1.6rem;
@@ -144,6 +152,20 @@ function prepareData(startData, stays) {
 function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode();
   const [tooltipColor, setTooltipColor] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(function () {
+    const mediaQuery = window.matchMedia('(max-width: 47.99em)');
+
+    function handleChange() {
+      setIsMobile(mediaQuery.matches);
+    }
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const startData = isDarkMode ? startDataDark : startDataLight;
 
@@ -152,16 +174,16 @@ function DurationChart({ confirmedStays }) {
   return (
     <ChartBox>
       <h2>Stay Duration Summary</h2>
-      <ResponsiveContainer width='100%' height={240}>
+      <ResponsiveContainer width='100%' height={isMobile ? 300 : 240}>
         <PieChart>
           <Pie
             data={data}
             nameKey='duration'
             dataKey='value'
-            innerRadius={85}
-            outerRadius={110}
-            cx={'40%'}
-            cy={'50%'}
+            innerRadius={isMobile ? 55 : 85}
+            outerRadius={isMobile ? 78 : 110}
+            cx={isMobile ? '50%' : '40%'}
+            cy={isMobile ? '42%' : '50%'}
             paddingAngle={3}
           >
             {data.map((entry) => (
@@ -180,12 +202,12 @@ function DurationChart({ confirmedStays }) {
             }}
           />
           <Legend
-            verticalAlign='middle'
-            align='right'
-            width={'30%'}
-            layout='vertical'
+            verticalAlign={isMobile ? 'bottom' : 'middle'}
+            align={isMobile ? 'center' : 'right'}
+            width={isMobile ? '100%' : '30%'}
+            layout={isMobile ? 'horizontal' : 'vertical'}
             iconType='circle'
-            iconSize={15}
+            iconSize={isMobile ? 12 : 15}
           />
         </PieChart>
       </ResponsiveContainer>

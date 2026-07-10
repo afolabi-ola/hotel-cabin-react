@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Logout from '../features/authentication/Logout';
 import ButtonIcon from './ButtonIcon';
-import { HiOutlineUser } from 'react-icons/hi2';
+import { HiOutlineUser, HiOutlineBars3 } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle';
 
@@ -10,12 +10,29 @@ const StyledHeaderMenu = styled.ul`
   gap: 0.4rem;
 `;
 
-function HeaderMenu() {
+const MenuToggle = styled(ButtonIcon)`
+  @media (min-width: 64em) {
+    display: none;
+  }
+`;
+
+function HeaderMenu({ onToggleSidebar, isSidebarOpen }) {
   const navigate = useNavigate();
   return (
     <StyledHeaderMenu>
       <li>
-        <ButtonIcon onClick={() => navigate('/account')}>
+        <MenuToggle
+          onClick={onToggleSidebar}
+          aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
+        >
+          <HiOutlineBars3 />
+        </MenuToggle>
+      </li>
+      <li>
+        <ButtonIcon
+          onClick={() => navigate('/account')}
+          aria-label='Open account'
+        >
           <HiOutlineUser />
         </ButtonIcon>
       </li>
