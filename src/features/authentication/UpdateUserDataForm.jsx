@@ -15,8 +15,11 @@ function UpdateUserDataForm() {
     user: {
       email,
       user_metadata: { fullName: currentFullName },
+      isDemo,
     },
   } = useUser();
+
+  console.log({ isDemo });
   const { updateUser, isUpdating } = useUpdateUser();
 
   const [fullName, setFullName] = useState(currentFullName);
@@ -53,7 +56,7 @@ function UpdateUserDataForm() {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           id='fullName'
-          disabled={isUpdating}
+          disabled={isUpdating || isDemo}
         />
       </FormRow>
       <FormRow label='Avatar image'>
@@ -61,19 +64,19 @@ function UpdateUserDataForm() {
           id='avatar'
           accept='image/*'
           onChange={(e) => setAvatar(e.target.files[0])}
-          disabled={isUpdating}
+          disabled={isUpdating || isDemo}
         />
       </FormRow>
       <FormRow>
         <Button
           type='reset'
           variation='secondary'
-          disabled={isUpdating}
+          disabled={isUpdating || isDemo}
           onClick={handleCancel}
         >
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update account</Button>
+        <Button disabled={isUpdating || isDemo}>Update account</Button>
       </FormRow>
     </Form>
   );

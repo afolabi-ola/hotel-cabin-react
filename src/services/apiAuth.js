@@ -5,7 +5,7 @@ export async function signUp({ email, password, fullName }) {
     email,
     password,
     options: {
-      data: { fullName, avatar: '' },
+      data: { fullName, avatar: '', isDemo: true },
     },
   });
   if (error) throw new Error(error.message);
@@ -32,7 +32,19 @@ export async function getCurrentUser({ email, password }) {
 
   if (error) throw new Error(error.message);
 
-  return data?.user;
+  
+  const { data: demoStatus, error: demoError } = await supabase
+    .from('demo_users')
+    .select('user_id')
+    .eq('user_id', data.user.id)
+    .maybeSingle();
+
+  if (demoError) throw new Error(demoError.message);
+
+  return {
+    ...data.user,
+    isDemo: demoStatus && demoStatus.user_id ? !!demoStatus.user_id : false,
+  };
 }
 
 export async function logout() {

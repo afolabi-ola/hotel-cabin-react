@@ -11,6 +11,10 @@ const StyledHeader = styled.header`
   gap: 2.4rem;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  grid-area: 1 / 2 / span 1 / span 1;
 `;
 
 function Header() {

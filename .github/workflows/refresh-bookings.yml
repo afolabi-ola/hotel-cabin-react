@@ -1,0 +1,29 @@
+name: Refresh Demo Bookings
+
+on:
+  schedule:
+    - cron: '0 1 * * *' # Runs every day at midnight
+
+  workflow_dispatch:
+
+jobs:
+  refresh-bookings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run refresh bookings script
+        env:
+          ADMIN_SUPABASE_URL: ${{ secrets.ADMIN_SUPABASE_URL }}
+          ADMIN_SUPABASE_KEY: ${{ secrets.ADMIN_SUPABASE_KEY }}
+        run: npm run refresh-bookings
