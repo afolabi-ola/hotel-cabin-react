@@ -113,12 +113,18 @@ html {
   font-size: 62.5%;
 }
 
+html,
+body,
+#root {
+  min-height: 100dvh;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   color: var(--color-grey-700);
+  background-color: var(--color-grey-50);
 
   transition: color 0.3s, background-color 0.3s;
-  min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
 }
@@ -143,6 +149,30 @@ select:disabled,
 input:disabled {
   background-color: var(--color-grey-200);
   color: var(--color-grey-500);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-grey-400) var(--color-grey-100);
+}
+
+*::-webkit-scrollbar {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-grey-100);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-grey-400);
+  border-radius: 999px;
+  border: 3px solid var(--color-grey-100);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-grey-500);
 }
 
 input:focus,

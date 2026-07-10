@@ -1,5 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
 import Select from './Select';
+
+const StyledSortBy = styled(Select)`
+  @media (max-width: 47.99em) {
+    width: 100%;
+  }
+`;
 
 function SortBy({ options }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,7 +18,7 @@ function SortBy({ options }) {
   }
 
   return (
-    <Select
+    <StyledSortBy
       options={options}
       type='white'
       onChange={handleChange}

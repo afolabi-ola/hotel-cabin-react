@@ -45,14 +45,33 @@ const Header = styled.header`
   }
 
   & span {
-    font-family: "Sono";
+    font-family: 'Sono';
     font-size: 2rem;
     margin-left: 4px;
+  }
+
+  @media (max-width: 47.99em) {
+    padding: 1.6rem 1.6rem 1.4rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+
+    & div:first-child {
+      align-items: flex-start;
+    }
+
+    & p {
+      font-size: 1.4rem;
+    }
   }
 `;
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+
+  @media (max-width: 47.99em) {
+    padding: 2rem 1.6rem 1.2rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -61,10 +80,16 @@ const Guest = styled.div`
   gap: 1.2rem;
   margin-bottom: 1.6rem;
   color: var(--color-grey-500);
+  flex-wrap: wrap;
 
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
+  }
+
+  @media (max-width: 47.99em) {
+    align-items: flex-start;
+    gap: 0.6rem 1rem;
   }
 `;
 
@@ -77,9 +102,9 @@ const Price = styled.div`
   margin-top: 2.4rem;
 
   background-color: ${(props) =>
-    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+    props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)'};
   color: ${(props) =>
-    props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+    props.isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)'};
 
   & p:last-child {
     text-transform: uppercase;
@@ -92,6 +117,17 @@ const Price = styled.div`
     width: 2.4rem;
     color: currentColor !important;
   }
+
+  @media (max-width: 47.99em) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1.4rem 1.6rem;
+
+    & p:last-child {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const Footer = styled.footer`
@@ -99,6 +135,11 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+
+  @media (max-width: 47.99em) {
+    padding: 1.2rem 1.6rem 1.6rem;
+    text-align: left;
+  }
 `;
 
 // A purely presentational component
