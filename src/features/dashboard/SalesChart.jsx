@@ -21,6 +21,7 @@ import {
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
+  min-width: 0;
 
   padding: 2rem 1.6rem;
 
@@ -32,6 +33,26 @@ const StyledSalesChart = styled(DashboardBox)`
   & .recharts-cartesian-grid-horizontal line,
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
+  }
+`;
+
+const ChartScroll = styled.div`
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 47.99em) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+`;
+
+const ChartFrame = styled.div`
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 47.99em) {
+    width: 72rem;
   }
 `;
 
@@ -133,46 +154,52 @@ function SalesChart({ bookings, numDays }) {
         Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash;{' '}
         {format(allDates.at(-1), 'MMM dd yyyy')}
       </h2>
-      <ResponsiveContainer height={isMobile ? 220 : 260} width='100%'>
-        <AreaChart
-          data={chartData}
-          margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
-        >
-          {/* <AreaChart data={data?.length < 1 ? fakeData : data}> */}
-          <XAxis
-            dataKey='label'
-            tick={{ fill: colors.text }}
-            tickLine={{ stroke: colors.text }}
-            interval={isMobile ? 1 : 0}
-          />
-          <YAxis
-            unit='$'
-            tick={{ fill: colors.text }}
-            tickLine={{ stroke: colors.text }}
-          />
+      <ChartScroll>
+        <ChartFrame>
+          <ResponsiveContainer height={isMobile ? 190 : 260} width='100%'>
+            <AreaChart
+              data={chartData}
+              margin={{ top: 10, right: 0, left: 0, bottom: isMobile ? 10 : 0 }}
+            >
+              {/* <AreaChart data={data?.length < 1 ? fakeData : data}> */}
+              <XAxis
+                dataKey='label'
+                tick={{ fill: colors.text }}
+                tickLine={{ stroke: colors.text }}
+                interval={0}
+                minTickGap={isMobile ? 8 : 24}
+              />
+              <YAxis
+                unit='$'
+                tick={{ fill: colors.text }}
+                tickLine={{ stroke: colors.text }}
+                width={isMobile ? 42 : 56}
+              />
 
-          <CartesianGrid strokeDasharray='4' />
-          <Tooltip contentStyle={{ backgroundColor: colors.background }} />
-          <Area
-            dataKey='totalSales'
-            type='monotone'
-            stroke={colors.totalSales.stroke}
-            fill={colors.totalSales.fill}
-            strokeWidth={2}
-            name='Total Sales'
-            unit='$'
-          />
-          <Area
-            dataKey='extrasSales'
-            type='monotone'
-            stroke={colors.extrasSales.stroke}
-            fill={colors.extrasSales.fill}
-            strokeWidth={2}
-            name='Extra Sales'
-            unit='$'
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+              <CartesianGrid strokeDasharray='4' />
+              <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+              <Area
+                dataKey='totalSales'
+                type='monotone'
+                stroke={colors.totalSales.stroke}
+                fill={colors.totalSales.fill}
+                strokeWidth={2}
+                name='Total Sales'
+                unit='$'
+              />
+              <Area
+                dataKey='extrasSales'
+                type='monotone'
+                stroke={colors.extrasSales.stroke}
+                fill={colors.extrasSales.fill}
+                strokeWidth={2}
+                name='Extra Sales'
+                unit='$'
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </ChartFrame>
+      </ChartScroll>
     </StyledSalesChart>
   );
 }

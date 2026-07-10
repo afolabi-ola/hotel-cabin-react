@@ -17,9 +17,18 @@ const Form = styled.form`
     css`
       width: 80rem;
     `}
-    
+
+  width: 100%;
   overflow: hidden;
   font-size: 1.4rem;
+
+  @media (max-width: 47.99em) {
+    ${(props) =>
+      props.type === 'regular' &&
+      css`
+        padding: 2rem 1.6rem;
+      `}
+  }
 `;
 
 Form.defaultProps = {

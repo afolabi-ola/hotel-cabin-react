@@ -10,6 +10,10 @@ const StyledFilter = styled.div`
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
+
+  @media (max-width: 47.99em) {
+    width: 100%;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -30,6 +34,10 @@ const FilterButton = styled.button`
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
   white-space: nowrap;
+
+  @media (max-width: 47.99em) {
+    flex: 1 1 12rem;
+  }
 
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);

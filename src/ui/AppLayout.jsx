@@ -20,7 +20,8 @@ const StyledAppLayout = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-grey-50);
   overflow-x: hidden;
 
   @media (min-width: 64em) {

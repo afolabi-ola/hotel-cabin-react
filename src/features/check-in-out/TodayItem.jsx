@@ -29,17 +29,21 @@ const StyledTodayItem = styled.li`
 
 const CheckInAction = styled.div`
   grid-column: 1 / -1;
+  width: 100%;
 
   @media (min-width: 48em) {
     grid-column: auto;
+    width: auto;
   }
 
   & a,
   & button {
+    display: block;
     width: 100%;
 
     @media (min-width: 48em) {
       width: auto;
+      display: inline-block;
     }
   }
 `;

@@ -7,7 +7,21 @@ const StyledTable = styled.div`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
-  overflow: hidden;
+  width: 100%;
+
+  @media (max-width: 47.99em) {
+    min-width: 68rem;
+  }
+`;
+
+const TableShell = styled.div`
+  width: 100%;
+
+  @media (max-width: 47.99em) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
 `;
 
 const CommonRow = styled.div`
@@ -65,7 +79,9 @@ const TableContext = createContext();
 function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <StyledTable role='table'>{children}</StyledTable>
+      <TableShell>
+        <StyledTable role='table'>{children}</StyledTable>
+      </TableShell>
     </TableContext.Provider>
   );
 }

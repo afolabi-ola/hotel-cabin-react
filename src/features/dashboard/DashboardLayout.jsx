@@ -13,6 +13,10 @@ const StyledDashboardLayout = styled.div`
   grid-template-columns: 1fr;
   gap: 1.6rem;
 
+  & > * {
+    min-width: 0;
+  }
+
   @media (min-width: 48em) {
     gap: 2rem;
   }
