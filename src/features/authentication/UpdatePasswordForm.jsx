@@ -5,12 +5,17 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import { useUser } from './useUser';
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
   const { updateUser, isUpdating } = useUpdateUser();
+
+  const {
+    user: { isDemo },
+  } = useUser();
 
   function onSubmit({ password }) {
     updateUser({ password }, { onSuccess: reset });
@@ -26,7 +31,7 @@ function UpdatePasswordForm() {
           type='password'
           id='password'
           autoComplete='current-password'
-          disabled={isUpdating}
+          disabled={isUpdating || isDemo}
           {...register('password', {
             required: 'This field is required',
             minLength: {
@@ -45,7 +50,7 @@ function UpdatePasswordForm() {
           type='password'
           autoComplete='new-password'
           id='passwordConfirm'
-          disabled={isUpdating}
+          disabled={isUpdating || isDemo}
           {...register('passwordConfirm', {
             required: 'This field is required',
             validate: (value) =>
@@ -54,10 +59,15 @@ function UpdatePasswordForm() {
         />
       </FormRow>
       <FormRow>
-        <Button onClick={reset} type='reset' variation='secondary'>
+        <Button
+          onClick={reset}
+          type='reset'
+          variation='secondary'
+          disabled={isUpdating || isDemo}
+        >
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update password</Button>
+        <Button disabled={isUpdating || isDemo}>Update password</Button>
       </FormRow>
     </Form>
   );

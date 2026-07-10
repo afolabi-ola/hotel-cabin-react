@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
+  grid-area: 2 / 2 / span 1 / span 1;
 `;
 
 const StyledAppLayout = styled.div`
