@@ -1,0 +1,25 @@
+name: Keep Workflows Alive
+
+on:
+  schedule:
+    # Runs at 00:00 on day-of-month 1 and 15 (roughly every 2 weeks)
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch: # Allows you to trigger it manually if needed
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to allow the action to push changes
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create dummy automated activity
+        run: |
+          date > .github/keep-alive.txt
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .github/keep-alive.txt
+          git commit -m "chore: automated keep-alive activity [skip ci]" || echo "No changes to commit"
+          git push
