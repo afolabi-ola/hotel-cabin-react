@@ -13,7 +13,7 @@ jobs:
       contents: write # Required to allow the action to push changes
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Create dummy automated activity
         run: |
